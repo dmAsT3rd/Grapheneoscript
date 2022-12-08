@@ -149,8 +149,11 @@ for repo in "${aosp_forks[@]}"; do
     echo -e "\n>>> $(tput setaf 3)Handling $repo$(tput sgr0)"
 
     cd $repo
-
-    git checkout $branch
+    if [[ $repo == platform_manifest ]]; then
+        git checkout 13-coral
+    else
+        git checkout $branch
+    fi
 
     if [[ -n $DELETE_TAG ]]; then
         git tag -d $DELETE_TAG || true
